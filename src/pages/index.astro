@@ -7,6 +7,33 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import CartButton from '../components/CartButton.astro';
 import Footer from '../components/footer.astro';
 
+const categories = [
+  {
+    name: "Artículos de Aseo",
+    image: "/images/confort40.png",
+    href: "/categorias/aseo",
+    description: "Productos de limpieza profesional"
+  },
+  {
+    name: "Productos Plásticos",
+    image: "/images/potekraft.webp",
+    href: "/categorias/plasticos",
+    description: "Vasos, contenedores y más"
+  },
+  {
+    name: "Papel y Toallas",
+    image: "/images/toallatork.png",
+    href: "/categorias/papel",
+    description: "Papel higiénico y toallas"
+  },
+  {
+    name: "Desechables",
+    image: "/images/confort40.png",
+    href: "/categorias/desechables",
+    description: "Biodegradables y kraft"
+  }
+];
+
 const featuredProducts = [
   {
     name: "Vasos Plásticos Transparentes",
@@ -45,6 +72,202 @@ const featuredProducts = [
       <div class="absolute top-20 left-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
       <div class="absolute bottom-20 right-10 w-96 h-96 bg-slate-500 rounded-full blur-3xl"></div>
     </div>
+
+    <!-- Sección de Categorías -->
+    <section class="container mx-auto px-4 py-20 relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-blue-600 via-slate-700 to-blue-800 bg-clip-text text-transparent">
+          Explora por Categorías
+        </h2>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          Encuentra exactamente lo que necesitas
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {categories.map((category) => (
+          <a 
+            href={category.href}
+            class="category-card group relative overflow-hidden rounded-2xl h-64 bg-white border-2 border-gray-100 hover:border-blue-400 transition-all duration-500 shadow-sm hover:shadow-md"
+          >
+            <!-- Contenedor de imagen con padding -->
+            <div class="absolute inset-0 flex items-center justify-center p-8">
+              <img 
+                src={category.image} 
+                alt={category.name}
+                class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+
+            <!-- Overlay con gradiente -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-blue-900/95 group-hover:via-blue-800/70 transition-all duration-500"></div>
+
+            <!-- Contenido -->
+            <div class="absolute inset-0 flex flex-col justify-end p-6">
+              <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 transform transition-transform duration-500 group-hover:translate-y-[-8px]">
+                {category.name}
+              </h3>
+              <p class="text-gray-200 text-sm opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                {category.description}
+              </p>
+              
+              <!-- Icono de flecha -->
+              <div class="mt-3 inline-flex items-center text-white opacity-0 transform translate-x-[-10px] transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
+                <span class="text-sm font-semibold mr-2">Ver productos</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+
+ <!-- Sección Conócenos -->
+    <section class="relative py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          <!-- Lado izquierdo: Contenido -->
+          <div class="space-y-6">
+            <div class="inline-block">
+              <span class="bg-blue-100 text-blue-600 font-bold px-4 py-2 rounded-full text-sm">
+                Sobre Nosotros
+              </span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+              Tu proveedor de confianza en
+              <span class="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent"> La Ligua</span>
+            </h2>
+            
+            <p class="text-gray-600 text-lg leading-relaxed">
+              En <strong class="text-blue-600">Musaplast</strong>, somos especialistas en la distribución de productos plásticos, 
+              artículos de aseo y desechables para empresas y negocios de toda la región.
+            </p>
+            
+            <p class="text-gray-600 text-lg leading-relaxed">
+              Con años de experiencia en el mercado, nos hemos consolidado como el aliado estratégico 
+              de restaurantes, hoteles, supermercados y empresas que buscan calidad y precios competitivos.
+            </p>
+
+            <!-- Características -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Calidad Garantizada</h3>
+                  <p class="text-gray-600 text-sm">Productos de primeras marcas</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Entrega Rápida</h3>
+                  <p class="text-gray-600 text-sm">Despacho en 24-48 horas</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Precios al Mayor</h3>
+                  <p class="text-gray-600 text-sm">Descuentos por volumen</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-900 mb-1">Asesoría Personalizada</h3>
+                  <p class="text-gray-600 text-sm">Expertos a tu disposición</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón CTA -->
+            <div class="pt-4">
+              <a 
+                href="/contacto" 
+                class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold px-8 py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Contáctanos
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Lado derecho: Estadísticas/Imagen -->
+          <div class="relative">
+            <!-- Tarjetas de estadísticas -->
+            <div class="grid grid-cols-2 gap-6">
+              <div class="stat-card bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+                  +500
+                </div>
+                <p class="text-gray-600 font-semibold">Clientes Satisfechos</p>
+              </div>
+
+              <div class="stat-card bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 mt-8">
+                <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+                  +100
+                </div>
+                <p class="text-gray-600 font-semibold">Productos en Stock</p>
+              </div>
+
+              <div class="stat-card bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+                  15+
+                </div>
+                <p class="text-gray-600 font-semibold">Años de Experiencia</p>
+              </div>
+
+              <div class="stat-card bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 mt-8">
+                <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-2">
+                  24/7
+                </div>
+                <p class="text-gray-600 font-semibold">Atención al Cliente</p>
+              </div>
+            </div>
+
+            <!-- Elemento decorativo -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-slate-200 rounded-full opacity-20 blur-3xl"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
     <!-- Productos Destacados -->
     <section class="container mx-auto px-4 py-24 relative z-10">
@@ -95,6 +318,30 @@ const featuredProducts = [
 </Layout>
 
 <style>
+  .category-card {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .category-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .category-card:hover::before {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    opacity: 1;
+  }
+
   .cta-card {
     background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #0f172a 100%);
     border-radius: 2rem;
