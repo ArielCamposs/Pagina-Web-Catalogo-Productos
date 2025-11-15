@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Vasos Plásticos Transparentes",
+    "category": "Plásticos",
+    "image": "/images/productos/vasos-transparentes.jpg",
+    "description": "Pack x100 unidades, 250ml. Ideales para eventos y fiestas.",
+    "price": "Consultar"
+  },
+  {
+    "id": 2,
+    "name": "Bowl Kraft 750ml",
+    "category": "Desechables",
+    "image": "/images/productos/bowl-kraft.jpg",
+    "description": "Biodegradable, perfecto para delivery de comida.",
+    "price": "Consultar"
+  },
+  {
+    "id": 3,
+    "name": "Bolsas Camiseta Blancas",
+    "category": "Plásticos",
+    "image": "/images/productos/bolsas-blancas.jpg",
+    "description": "Pack x100 unidades, resistentes y económicas.",
+    "price": "Consultar"
+  },
+  {
+    "id": 4,
+    "name": "Bolsas Camiseta Negras",
+    "category": "Plásticos",
+    "image": "/images/productos/bolsas-negras.jpg",
+    "description": "Pack x100 unidades, alta resistencia.",
+    "price": "Consultar"
+  },
+  {
+    "id": 5,
+    "name": "Papel Higiénico Premium",
+    "category": "Papel",
+    "image": "/images/productos/papel-higienico.jpg",
+    "description": "Rollo de 500 hojas, doble hoja, suave y resistente.",
+    "price": "Consultar"
+  },
+  {
+    "id": 6,
+    "name": "Toallas de Papel",
+    "category": "Papel",
+    "image": "/images/productos/toallas-papel.jpg",
+    "description": "Rollo x100 paños, alta absorción.",
+    "price": "Consultar"
+  },
+  {
+    "id": 7,
+    "name": "Bidón de Cloro 5L",
+    "category": "Aseo",
+    "image": "/images/productos/bidon-cloro.jpg",
+    "description": "Cloro concentrado, ideal para limpieza profunda.",
+    "price": "Consultar"
+  },
+  {
+    "id": 8,
+    "name": "Sacos de Papel Kraft",
+    "category": "Desechables",
+    "image": "/images/productos/sacos-papel.jpg",
+    "description": "Pack x50 unidades, biodegradables y resistentes.",
+    "price": "Consultar"
+  },
+  {
+    "id": 9,
+    "name": "Bolsas de Basura 50L",
+    "category": "Plásticos",
+    "image": "/images/productos/bolsas-basura.jpg",
+    "description": "Pack x20 unidades, extra resistentes.",
+    "price": "Consultar"
+  },
+  {
+    "id": 10,
+    "name": "Vasos de Aislapol",
+    "category": "Desechables",
+    "image": "/images/productos/vasos-aislapol.jpg",
+    "description": "Pack x50 unidades, mantiene temperatura.",
+    "price": "Consultar"
+  },
+  {
+    "id": 11,
+    "name": "Detergente Líquido 5L",
+    "category": "Aseo",
+    "image": "/images/productos/detergente.jpg",
+    "description": "Alto poder de limpieza, rendidor.",
+    "price": "Consultar"
+  },
+  {
+    "id": 12,
+    "name": "Potes Kraft con Tapa",
+    "category": "Desechables",
+    "image": "/images/productos/potes-kraft.jpg",
+    "description": "Pack x50 unidades, 500ml, ecológicos.",
+    "price": "Consultar"
+  }
+]

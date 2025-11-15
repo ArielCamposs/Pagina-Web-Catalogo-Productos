@@ -1,0 +1,164 @@
+---
+const slides = [
+  {
+    image: '/images/hero1.jpg',
+    title: 'Productos Plásticos de Calidad',
+    description: 'Vasos, contenedores y más para tu negocio'
+  },
+  {
+    image: '/images/hero2.jpg',
+    title: 'Artículos de Aseo Profesionales',
+    description: 'Cloro, detergentes y productos de limpieza'
+  },
+  {
+    image: '/images/hero3.jpg',
+    title: 'Desechables Ecológicos',
+    description: 'Potes kraft, bolsas y empaques biodegradables'
+  }
+];
+---
+
+<section class="carousel-container relative h-[600px] w-full overflow-hidden bg-gray-900">
+  {slides.map((slide, index) => (
+    <div 
+      class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+      data-slide={index}
+    >
+      <div class="relative w-full h-full bg-gray-100">
+        <img 
+          src={slide.image} 
+          alt={slide.title}
+          class="w-full h-full object-contain"
+        />
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        
+        <div class="absolute inset-0 flex items-end pb-16">
+          <div class="container mx-auto px-4">
+            <div class="text-white max-w-2xl">
+              <h1 class="text-5xl md:text-6xl font-bold mb-4">
+                {slide.title}
+              </h1>
+              <p class="text-xl mb-8">
+                {slide.description}
+              </p>
+              <a 
+                href="/productos" 
+                class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block"
+              >
+                Ver Catálogo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  <!-- Flechas de navegación -->
+  <button 
+    id="prev-btn" 
+    class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </button>
+  
+  <button 
+    id="next-btn" 
+    class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+
+  <!-- Indicadores -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+    {slides.map((_, index) => (
+      <button 
+        class={`carousel-dot w-3 h-3 rounded-full transition-all ${index === 0 ? 'bg-white w-8' : 'bg-white/50'}`}
+        data-slide={index}
+      ></button>
+    ))}
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const container = document.querySelector('.carousel-container');
+  
+  let currentSlide = 0;
+  let autoplayInterval;
+
+  function showSlide(index) {
+    // Ocultar todos
+    slides.forEach(slide => {
+      slide.classList.remove('opacity-100');
+      slide.classList.add('opacity-0');
+    });
+
+    dots.forEach(dot => {
+      dot.classList.remove('bg-white', 'w-8');
+      dot.classList.add('bg-white/50');
+    });
+
+    // Mostrar actual
+    slides[index].classList.remove('opacity-0');
+    slides[index].classList.add('opacity-100');
+    
+    dots[index].classList.remove('bg-white/50');
+    dots[index].classList.add('bg-white', 'w-8');
+
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+
+  function prevSlide() {
+    const prev = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prev);
+  }
+
+  function startAutoplay() {
+    autoplayInterval = setInterval(nextSlide, 5000);
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayInterval);
+  }
+
+  // Eventos
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    stopAutoplay();
+    startAutoplay();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    stopAutoplay();
+    startAutoplay();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
+      stopAutoplay();
+      startAutoplay();
+    });
+  });
+
+  container.addEventListener('mouseenter', stopAutoplay);
+  container.addEventListener('mouseleave', startAutoplay);
+
+  // Iniciar
+  startAutoplay();
+</script>

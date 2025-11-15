@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ProductCard from '../components/ProductCard.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import CartButton from '../components/CartButton.astro';
+import Footer from '../components/Footer.astro';
+
+// Importar los datos de productos
+import products from '../data/products.json';
+
+const categories = ['Todos', 'Plásticos', 'Aseo', 'Papel', 'Desechables'];
+---
+
+<Layout title="Productos - Musaplast" description="Explora nuestro catálogo completo de productos">
+  <Header />
+  
+  <main class="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div class="container mx-auto px-4 py-12">
+      <!-- Header de la página -->
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+          Nuestros Productos
+        </h1>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          Encuentra todo lo que necesitas para tu negocio
+        </p>
+      </div>
+
+      <!-- Filtros de categoría -->
+      <div class="mb-12 flex flex-wrap justify-center gap-3">
+        {categories.map((cat, index) => (
+          <button 
+            class={`filter-btn px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              index === 0 
+                ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-lg' 
+                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-purple-500 hover:text-purple-600'
+            }`}
+            data-category={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grid de productos -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8" id="products-grid">
+        {products.map(product => (
+          <div class="product-item" data-category={product.category}>
+            <ProductCard {...product} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Mensaje cuando no hay productos -->
+      <div id="no-products" class="hidden text-center py-16">
+        <svg class="w-24 h-24 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+        </svg>
+        <p class="text-gray-500 text-lg">No se encontraron productos en esta categoría</p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <WhatsAppButton />
+  <CartButton />  <!-- ← Agregar aquí el CartButton -->
+</Layout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const productItems = document.querySelectorAll('.product-item');
+  const noProductsMessage = document.getElementById('no-products');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category;
+      
+      // Actualizar estilos de botones
+      filterButtons.forEach(btn => {
+        if (btn === button) {
+          btn.className = 'filter-btn px-6 py-3 rounded-full font-bold transition-all duration-300 bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-lg';
+        } else {
+          btn.className = 'filter-btn px-6 py-3 rounded-full font-bold transition-all duration-300 bg-white text-gray-700 border-2 border-gray-200 hover:border-purple-500 hover:text-purple-600';
+        }
+      });
+
+      // Filtrar productos con animación
+      let visibleCount = 0;
+      
+      productItems.forEach((item, index) => {
+        const productCategory = item.dataset.category;
+        
+        if (category === 'Todos' || productCategory === category) {
+          setTimeout(() => {
+            item.style.display = 'block';
+            item.style.animation = 'fadeInUp 0.5s ease-out forwards';
+          }, index * 50);
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Mostrar mensaje si no hay productos
+      if (visibleCount === 0) {
+        noProductsMessage?.classList.remove('hidden');
+      } else {
+        noProductsMessage?.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .product-item {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+</style>

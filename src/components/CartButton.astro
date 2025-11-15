@@ -1,0 +1,486 @@
+<div id="cart-container">
+  <!-- Botón del carrito flotante -->
+  <button 
+    id="cart-button"
+    class="cart-btn"
+    aria-label="Ver carrito de pedidos"
+  >
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+    </svg>
+    <span id="cart-count" class="cart-badge hidden">0</span>
+  </button>
+
+  <!-- Overlay oscuro (para cerrar al hacer clic fuera) -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+
+  <!-- Panel del carrito (OCULTO por defecto) -->
+  <div id="cart-panel" class="cart-panel">
+    <div class="cart-header">
+      <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-slate-700 bg-clip-text text-transparent">
+        Mi Pedido
+      </h3>
+      <button id="close-cart" class="text-gray-500 hover:text-gray-700 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="cart-items" class="cart-items">
+      <!-- Los items se agregarán dinámicamente -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-gray-600">Total de productos:</span>
+        <span id="total-items" class="text-2xl font-bold text-blue-600">0</span>
+      </div>
+      
+      <button id="send-whatsapp" class="whatsapp-btn" disabled>
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar Pedido por WhatsApp
+      </button>
+
+      <button id="clear-cart" class="clear-btn mt-3">
+        Limpiar Pedido
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { cartStore } from '../stores/cartStore.js';
+
+  // Elementos del DOM
+  const cartButton = document.getElementById('cart-button');
+  const cartPanel = document.getElementById('cart-panel');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const closeCart = document.getElementById('close-cart');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartCount = document.getElementById('cart-count');
+  const totalItems = document.getElementById('total-items');
+  const sendWhatsApp = document.getElementById('send-whatsapp');
+  const clearCartBtn = document.getElementById('clear-cart');
+
+  // Funciones para abrir/cerrar el carrito
+  function openCart() {
+    cartPanel?.classList.add('open');
+    cartOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCartPanel() {
+    cartPanel?.classList.remove('open');
+    cartOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Función para actualizar la UI del carrito
+  function updateCartUI() {
+    const items = cartStore.getItems();
+    const count = cartStore.getCount();
+    
+    // Actualizar badge
+    if (cartCount) {
+      cartCount.textContent = count;
+      if (count === 0) {
+        cartCount.classList.add('hidden');
+      } else {
+        cartCount.classList.remove('hidden');
+      }
+    }
+    
+    // Actualizar total
+    if (totalItems) {
+      totalItems.textContent = count;
+    }
+    
+    // Renderizar items
+    if (!cartItemsContainer) return;
+    
+    if (items.length === 0) {
+      cartItemsContainer.innerHTML = `
+        <div class="empty-cart">
+          <svg class="w-20 h-20 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <p class="text-gray-500">No hay productos en tu pedido</p>
+        </div>
+      `;
+      if (sendWhatsApp) {
+        sendWhatsApp.disabled = true;
+        sendWhatsApp.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    } else {
+      cartItemsContainer.innerHTML = items.map(item => `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.name}" class="cart-item-image" />
+          <div class="cart-item-info">
+            <h4 class="font-semibold text-gray-800 text-sm">${item.name}</h4>
+            <p class="text-xs text-gray-500">${item.category}</p>
+          </div>
+          <div class="cart-item-actions">
+            <div class="quantity-controls">
+              <button class="quantity-btn" data-action="decrease" data-product="${item.name}">-</button>
+              <span class="quantity-value">${item.quantity}</span>
+              <button class="quantity-btn" data-action="increase" data-product="${item.name}">+</button>
+            </div>
+            <button class="remove-btn" data-product="${item.name}">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+      
+      if (sendWhatsApp) {
+        sendWhatsApp.disabled = false;
+        sendWhatsApp.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+      
+      // Agregar event listeners a los botones
+      document.querySelectorAll('[data-action="increase"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const productName = e.currentTarget.dataset.product;
+          const item = items.find(i => i.name === productName);
+          if (item) {
+            cartStore.updateQuantity(productName, item.quantity + 1);
+          }
+        });
+      });
+      
+      document.querySelectorAll('[data-action="decrease"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const productName = e.currentTarget.dataset.product;
+          const item = items.find(i => i.name === productName);
+          if (item) {
+            cartStore.updateQuantity(productName, item.quantity - 1);
+          }
+        });
+      });
+      
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const productName = e.currentTarget.dataset.product;
+          cartStore.removeItem(productName);
+        });
+      });
+    }
+  }
+
+  // Event Listeners para abrir/cerrar carrito
+  cartButton?.addEventListener('click', openCart);
+  closeCart?.addEventListener('click', closeCartPanel);
+  cartOverlay?.addEventListener('click', closeCartPanel);
+
+  // Enviar por WhatsApp
+  sendWhatsApp?.addEventListener('click', () => {
+    const message = cartStore.generateWhatsAppMessage();
+    if (message) {
+      window.open(`https://wa.me/56912345678?text=${message}`, '_blank');
+    }
+  });
+
+  // Limpiar carrito
+  clearCartBtn?.addEventListener('click', () => {
+    if (confirm('¿Estás seguro de que quieres limpiar tu pedido?')) {
+      cartStore.clear();
+    }
+  });
+
+  // Agregar productos al carrito desde los botones
+  document.addEventListener('click', (e) => {
+    const button = e.target.closest('.add-to-cart-btn');
+    if (button) {
+      // Encontrar la card padre y su input de cantidad
+      const card = button.closest('[data-product-card]');
+      const quantityInput = card?.querySelector('.qty-input') as HTMLInputElement;
+      const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+      
+      const product = {
+        name: button.dataset.productName,
+        category: button.dataset.productCategory,
+        image: button.dataset.productImage,
+        description: button.dataset.productDescription
+      };
+      
+      // Agregar la cantidad especificada al carrito
+      for (let i = 0; i < quantity; i++) {
+        cartStore.addItem(product);
+      }
+      
+      // Feedback visual
+      const textSpan = button.querySelector('span:last-child');
+      if (textSpan) {
+        button.classList.add('added');
+        const originalText = textSpan.textContent;
+        textSpan.textContent = `¡${quantity} agregado${quantity > 1 ? 's' : ''}!`;
+        setTimeout(() => {
+          button.classList.remove('added');
+          textSpan.textContent = originalText;
+          // Resetear cantidad a 1
+          if (quantityInput) {
+            quantityInput.value = '1';
+          }
+        }, 1500);
+      }
+    }
+  });
+
+  // Cerrar con tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCartPanel();
+    }
+  });
+
+  // Suscribirse a cambios del carrito
+  cartStore.subscribe(() => {
+    updateCartUI();
+  });
+
+  // Inicializar
+  updateCartUI();
+</script>
+
+<style>
+  .cart-btn {
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+    z-index: 999;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 10px 40px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .cart-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(37, 99, 235, 0.6);
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    padding: 0 6px;
+  }
+
+  /* Overlay oscuro */
+  .cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Panel del carrito - OCULTO por defecto */
+  .cart-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background: white;
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  /* Estado abierto */
+  .cart-panel.open {
+    transform: translateX(0);
+  }
+  
+  .cart-header {
+    padding: 1.5rem;
+    border-bottom: 2px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  }
+  
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+  }
+  
+  .cart-item:hover {
+    background: #f3f4f6;
+    transform: translateX(-5px);
+  }
+  
+  .cart-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    background: white;
+    padding: 0.25rem;
+  }
+  
+  .cart-item-info {
+    flex: 1;
+  }
+  
+  .cart-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+  }
+  
+  .quantity-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+  
+  .quantity-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .quantity-value {
+    width: 32px;
+    text-align: center;
+    font-weight: 700;
+    color: #374151;
+  }
+  
+  .remove-btn {
+    color: #ef4444;
+    transition: all 0.2s ease;
+  }
+  
+  .remove-btn:hover {
+    color: #dc2626;
+    transform: scale(1.1);
+  }
+  
+  .cart-footer {
+    padding: 1.5rem;
+    border-top: 2px solid #f3f4f6;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  }
+  
+  .whatsapp-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  }
+  
+  .whatsapp-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+  
+  .clear-btn {
+    width: 100%;
+    background: transparent;
+    color: #ef4444;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 2px solid #ef4444;
+    transition: all 0.3s ease;
+  }
+  
+  .clear-btn:hover {
+    background: #ef4444;
+    color: white;
+  }
+  
+  @media (max-width: 640px) {
+    .cart-btn {
+      width: 60px;
+      height: 60px;
+      bottom: 6rem;
+      right: 1.5rem;
+    }
+    
+    .cart-panel {
+      max-width: 100%;
+    }
+  }
+</style>
