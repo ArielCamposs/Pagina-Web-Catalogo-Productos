@@ -2,25 +2,27 @@
 const navItems = [
   { name: 'Inicio', href: '/' },
   { name: 'Productos', href: '/productos' },
-  { name: 'Categorías', href: '#', dropdown: [
-    { name: 'Artículos de Aseo', href: '/categorias/aseo' },
-    { name: 'Productos Plásticos', href: '/categorias/plasticos' },
-    { name: 'Papel y Toallas', href: '/categorias/papel' }
+  { name: 'Categorías', href: '/productos', dropdown: [
+    { name: 'Artículos de Aseo', href: '/productos?categoria=Aseo' },
+    { name: 'Productos Plásticos', href: '/productos?categoria=Plásticos' },
+    { name: 'Papel y Toallas', href: '/productos?categoria=Papel' },
+    { name: 'Desechables', href: '/productos?categoria=Desechables' }
   ]},
   { name: 'Contacto', href: '/contacto' }
 ];
 ---
 
+
 <!-- Barra Superior con azul corporativo -->
 <div class="bg-gradient-to-r from-slate-700 via-blue-900 to-slate-800 text-white text-sm">
   <div class="container mx-auto px-4 py-3">
     <div class="flex justify-between items-center">
-      <!-- Redes Sociales (Izquierda) - Solo Iconos -->
+      <!-- Redes Sociales -->
       <div class="flex items-center space-x-3">
         <a 
           href="https://www.facebook.com/musaplast" 
           target="_blank" 
-          class="hover:scale-110 transition-transform duration-300"
+          class="hover:text-blue-500 hover:scale-110 transition-transform duration-300"
           aria-label="Facebook"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -31,7 +33,7 @@ const navItems = [
         <a 
           href="https://www.instagram.com/musaplast" 
           target="_blank" 
-          class="hover:scale-110 transition-transform duration-300"
+          class="hover:text-pink-400 hover:scale-110 transition-transform duration-300"
           aria-label="Instagram"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -40,10 +42,10 @@ const navItems = [
         </a>
       </div>
 
-      <!-- Ubicación (Derecha) -->
+      <!-- Ubicación -->
       <div class="flex items-center space-x-4">
         <a 
-          href="https://maps.google.com/?q=La+Ligua+Valparaiso+Chile" 
+          href="https://maps.app.goo.gl/NRs2KFmBCfPsS5dS8" 
           target="_blank" 
           class="flex items-center hover:scale-105 transition-transform duration-300"
         >
@@ -51,18 +53,7 @@ const navItems = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
-          <span class="hidden sm:inline font-medium">La Ligua, Valparaíso</span>
-        </a>
-
-        <a 
-          href="https://wa.me/56912345678" 
-          target="_blank" 
-          class="flex items-center hover:scale-105 transition-transform duration-300"
-        >
-          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          <span class="hidden sm:inline font-medium">+56 9 1234 5678</span>
+          <span class="hidden sm:inline font-medium">Calle Polanco, #306, La Ligua</span>
         </a>
       </div>
     </div>
@@ -73,7 +64,7 @@ const navItems = [
 <header class="glass-header sticky top-0 z-50 backdrop-blur-xl bg-white/70 shadow-lg border-b border-white/20">
   <nav class="container mx-auto px-4 py-4">
     <div class="flex justify-between items-center">
-      <!-- Logo con azul corporativo -->
+      <!-- Logo -->
       <div class="text-3xl font-black">
         <a href="/" class="bg-gradient-to-r from-blue-600 via-blue-700 to-slate-700 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 inline-block">
           MUSAPLAST
@@ -83,7 +74,7 @@ const navItems = [
       <!-- Menú Desktop -->
       <ul class="hidden md:flex space-x-8">
         {navItems.map(item => (
-          <li class="relative group">
+          <li class="relative dropdown-container">
             <a 
               href={item.href} 
               class="font-semibold text-gray-700 hover:text-blue-600 transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 hover:after:w-full after:transition-all after:duration-300"
@@ -91,7 +82,7 @@ const navItems = [
               {item.name}
             </a>
             {item.dropdown && (
-              <ul class="absolute hidden group-hover:block glass-dropdown backdrop-blur-xl bg-white/80 shadow-2xl rounded-2xl mt-4 py-3 w-56 border border-white/20">
+              <ul class="dropdown-menu glass-dropdown backdrop-blur-xl bg-white/90 shadow-2xl rounded-2xl mt-4 py-3 w-56 border border-white/20">
                 {item.dropdown.map(sub => (
                   <li>
                     <a 
@@ -155,26 +146,71 @@ const navItems = [
   
   .glass-dropdown {
     backdrop-filter: blur(20px) saturate(180%);
-    animation: fadeInDown 0.3s ease-out;
   }
-  
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  .dropdown-container {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 </style>
 
 <script>
+  // Menu mobile
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
 
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.toggle('hidden');
   });
+
+  // Dropdown mejorado con JavaScript
+  const dropdownContainers = document.querySelectorAll('.dropdown-container');
+  
+  dropdownContainers.forEach(container => {
+    const dropdown = container.querySelector('.dropdown-menu');
+    let timeoutId: number;
+
+    // Mostrar dropdown
+    const showDropdown = () => {
+      clearTimeout(timeoutId);
+      dropdown?.classList.add('show');
+    };
+
+    // Ocultar dropdown con delay
+    const hideDropdown = () => {
+      timeoutId = setTimeout(() => {
+        dropdown?.classList.remove('show');
+      }, 200); // 200ms de delay antes de cerrar
+    };
+
+    // Event listeners en el contenedor
+    container.addEventListener('mouseenter', showDropdown);
+    container.addEventListener('mouseleave', hideDropdown);
+
+    // Event listeners en el dropdown
+    dropdown?.addEventListener('mouseenter', () => {
+      clearTimeout(timeoutId);
+      dropdown.classList.add('show');
+    });
+    dropdown?.addEventListener('mouseleave', hideDropdown);
+  });
 </script>
+

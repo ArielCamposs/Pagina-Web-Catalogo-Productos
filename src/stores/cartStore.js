@@ -1,64 +1,95 @@
-// Carrito simple sin dependencias externas
-let cart = [];
-let listeners = [];
+import { atom } from 'nanostores';
+
+// Función para cargar el carrito desde localStorage
+function loadCartFromStorage() {
+  if (typeof window === 'undefined') return [];
+  
+  try {
+    const savedCart = localStorage.getItem('musaplast-cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  } catch (error) {
+    console.error('Error loading cart from localStorage:', error);
+    return [];
+  }
+}
+
+// Función para guardar el carrito en localStorage
+function saveCartToStorage(items) {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem('musaplast-cart', JSON.stringify(items));
+  } catch (error) {
+    console.error('Error saving cart to localStorage:', error);
+  }
+}
+
+// Inicializar el carrito con los datos guardados
+const $cart = atom(loadCartFromStorage());
 
 export const cartStore = {
-  // Obtener todos los items
+  subscribe(callback) {
+    return $cart.subscribe(callback);
+  },
+
   getItems() {
-    return [...cart];
+    return $cart.get();
   },
 
-  // Obtener cantidad total
   getCount() {
-    return cart.reduce((total, item) => total + item.quantity, 0);
+    return $cart.get().reduce((total, item) => total + item.quantity, 0);
   },
 
-  // Agregar producto
   addItem(product) {
-    const existingIndex = cart.findIndex(item => item.name === product.name);
-    
-    if (existingIndex >= 0) {
-      cart[existingIndex].quantity += 1;
+    const currentItems = $cart.get();
+    const existingItem = currentItems.find(item => item.name === product.name);
+
+    let newItems;
+    if (existingItem) {
+      newItems = currentItems.map(item =>
+        item.name === product.name
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
     } else {
-      cart.push({ ...product, quantity: 1 });
+      newItems = [...currentItems, { ...product, quantity: 1 }];
     }
-    
-    this.notify();
+
+    $cart.set(newItems);
+    saveCartToStorage(newItems);
   },
 
-  // Actualizar cantidad
+  removeItem(productName) {
+    const newItems = $cart.get().filter(item => item.name !== productName);
+    $cart.set(newItems);
+    saveCartToStorage(newItems);
+  },
+
   updateQuantity(productName, quantity) {
     if (quantity <= 0) {
       this.removeItem(productName);
       return;
     }
-    
-    const index = cart.findIndex(item => item.name === productName);
-    if (index >= 0) {
-      cart[index].quantity = quantity;
-      this.notify();
-    }
+
+    const newItems = $cart.get().map(item =>
+      item.name === productName ? { ...item, quantity } : item
+    );
+    $cart.set(newItems);
+    saveCartToStorage(newItems);
   },
 
-  // Remover item
-  removeItem(productName) {
-    cart = cart.filter(item => item.name !== productName);
-    this.notify();
-  },
-
-  // Limpiar carrito
   clear() {
-    cart = [];
-    this.notify();
+    $cart.set([]);
+    saveCartToStorage([]);
   },
 
-  // Generar mensaje de WhatsApp
   generateWhatsAppMessage() {
-    if (cart.length === 0) return '';
-    
+    const items = this.getItems();
+    if (items.length === 0) return null;
+
     let message = '¡Hola! Me gustaría cotizar los siguientes productos:\n\n';
     
-    cart.forEach((item, index) => {
+    items.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`;
       message += `   Categoría: ${item.category}\n`;
       message += `   Cantidad: ${item.quantity}\n\n`;
@@ -67,18 +98,5 @@ export const cartStore = {
     message += 'Espero su respuesta. ¡Gracias!';
     
     return encodeURIComponent(message);
-  },
-
-  // Suscribirse a cambios
-  subscribe(callback) {
-    listeners.push(callback);
-    return () => {
-      listeners = listeners.filter(l => l !== callback);
-    };
-  },
-
-  // Notificar cambios
-  notify() {
-    listeners.forEach(callback => callback(this.getItems()));
   }
 };

@@ -31,34 +31,83 @@
       <!-- Los items se agregarán dinámicamente -->
     </div>
 
-           <div class="cart-footer">
-            <!-- Aviso de disponibilidad -->
-            <div class="stock-notice">
-              <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <p class="text-xs text-gray-600">
-                <strong>Importante:</strong> La disponibilidad de los productos está sujeta a stock. Te confirmaremos por WhatsApp.
-              </p>
-            </div>
+    <div class="cart-footer">
+      <!-- Aviso de disponibilidad -->
+      <div class="stock-notice">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-xs text-gray-600">
+          <strong>Importante:</strong> La disponibilidad de los productos está sujeta a stock. Te confirmaremos por WhatsApp.
+        </p>
+      </div>
 
-            <div class="flex justify-between items-center mb-4">
-              <span class="text-gray-600">Total de productos:</span>
-              <span id="total-items" class="text-2xl font-bold text-blue-600">0</span>
-            </div>
-            
-            <button id="send-whatsapp" class="whatsapp-btn" disabled>
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              Enviar Pedido por WhatsApp
-            </button>
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-gray-600">Total de productos:</span>
+        <span id="total-items" class="text-2xl font-bold text-blue-600">0</span>
+      </div>
 
-            <button id="clear-cart" class="clear-btn mt-3">
-              Limpiar Pedido
-            </button>
-          </div>
+      <!-- Botón WhatsApp -->
+      <button id="send-whatsapp" class="whatsapp-btn" disabled>
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar Pedido por WhatsApp
+      </button>
 
+      <button id="clear-cart" class="clear-btn mt-3">
+        Limpiar Pedido
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación para Eliminar Producto Individual -->
+  <div id="remove-modal" class="confirm-modal">
+    <div class="confirm-modal-content">
+      <div class="confirm-modal-icon">
+        <svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-3">¿Eliminar producto?</h3>
+      <p class="text-gray-600 mb-2 text-center font-semibold" id="remove-product-name"></p>
+      <p class="text-gray-500 mb-6 text-center text-sm">
+        Se eliminará este producto de tu pedido
+      </p>
+      <div class="confirm-modal-buttons">
+        <button id="cancel-remove" class="btn-cancel">
+          Cancelar
+        </button>
+        <button id="confirm-remove" class="btn-confirm-delete">
+          Sí, eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación para Limpiar Carrito -->
+  <div id="clear-modal" class="confirm-modal">
+    <div class="confirm-modal-content">
+      <div class="confirm-modal-icon">
+        <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-3">¿Limpiar carrito?</h3>
+      <p class="text-gray-600 mb-6 text-center">
+        Se eliminarán todos los productos de tu pedido. Esta acción no se puede deshacer.
+      </p>
+      <div class="confirm-modal-buttons">
+        <button id="cancel-clear" class="btn-cancel">
+          Cancelar
+        </button>
+        <button id="confirm-clear" class="btn-confirm-delete">
+          Sí, limpiar carrito
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
   import { cartStore } from '../stores/cartStore.js';
@@ -73,6 +122,9 @@
   const totalItems = document.getElementById('total-items');
   const sendWhatsApp = document.getElementById('send-whatsapp');
   const clearCartBtn = document.getElementById('clear-cart');
+
+  // Variable para guardar el producto a eliminar
+  let productToRemove = '';
 
   // Funciones para abrir/cerrar el carrito
   function openCart() {
@@ -137,7 +189,7 @@
               <span class="quantity-value">${item.quantity}</span>
               <button class="quantity-btn" data-action="increase" data-product="${item.name}">+</button>
             </div>
-            <button class="remove-btn" data-product="${item.name}">
+            <button class="remove-btn" data-product="${item.name}" title="Eliminar producto">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
               </svg>
@@ -172,13 +224,19 @@
         });
       });
       
+      // Event listeners para botones de eliminar - AHORA CON MODAL
       document.querySelectorAll('.remove-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const productName = e.currentTarget.dataset.product;
-                    // Mostrar confirmación antes de eliminar
-          if (confirm(`¿Estás seguro de que quieres eliminar "${productName}" del carrito?`)) {
-            cartStore.removeItem(productName);
+          productToRemove = productName;
+          
+          const removeProductNameEl = document.getElementById('remove-product-name');
+          if (removeProductNameEl) {
+            removeProductNameEl.textContent = productName;
           }
+          
+          const removeModal = document.getElementById('remove-modal');
+          removeModal?.classList.add('show');
         });
       });
     }
@@ -197,10 +255,85 @@
     }
   });
 
-  // Limpiar carrito
+  // Modal de confirmación para eliminar producto individual
+  const removeModal = document.getElementById('remove-modal');
+  const cancelRemoveBtn = document.getElementById('cancel-remove');
+  const confirmRemoveBtn = document.getElementById('confirm-remove');
+
+  cancelRemoveBtn?.addEventListener('click', () => {
+    removeModal?.classList.remove('show');
+    productToRemove = '';
+  });
+
+  confirmRemoveBtn?.addEventListener('click', () => {
+    if (productToRemove) {
+      cartStore.removeItem(productToRemove);
+      removeModal?.classList.remove('show');
+      productToRemove = '';
+      
+      // Mostrar mensaje de éxito
+      const successMsg = document.createElement('div');
+      successMsg.className = 'toast-message';
+      successMsg.innerHTML = `
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        Producto eliminado
+      `;
+      document.body.appendChild(successMsg);
+      
+      setTimeout(() => successMsg.classList.add('show'), 100);
+      setTimeout(() => {
+        successMsg.classList.remove('show');
+        setTimeout(() => successMsg.remove(), 300);
+      }, 2000);
+    }
+  });
+
+  removeModal?.addEventListener('click', (e) => {
+    if (e.target === removeModal) {
+      removeModal.classList.remove('show');
+      productToRemove = '';
+    }
+  });
+
+  // Modal de confirmación para limpiar carrito
+  const clearModal = document.getElementById('clear-modal');
+  const cancelClearBtn = document.getElementById('cancel-clear');
+  const confirmClearBtn = document.getElementById('confirm-clear');
+
   clearCartBtn?.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres limpiar tu pedido?')) {
-      cartStore.clear();
+    clearModal?.classList.add('show');
+  });
+
+  cancelClearBtn?.addEventListener('click', () => {
+    clearModal?.classList.remove('show');
+  });
+
+  confirmClearBtn?.addEventListener('click', () => {
+    cartStore.clear();
+    clearModal?.classList.remove('show');
+    
+    const successMsg = document.createElement('div');
+    successMsg.className = 'toast-message';
+    successMsg.innerHTML = `
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+      </svg>
+      Carrito limpiado correctamente
+    `;
+    document.body.appendChild(successMsg);
+    
+    setTimeout(() => successMsg.classList.add('show'), 100);
+    setTimeout(() => {
+      successMsg.classList.remove('show');
+      setTimeout(() => successMsg.remove(), 300);
+    }, 3000);
+  });
+
+  clearModal?.addEventListener('click', (e) => {
+    if (e.target === clearModal) {
+      clearModal.classList.remove('show');
     }
   });
 
@@ -208,7 +341,6 @@
   document.addEventListener('click', (e) => {
     const button = e.target.closest('.add-to-cart-btn');
     if (button) {
-      // Encontrar la card padre y su input de cantidad
       const card = button.closest('[data-product-card]');
       const quantityInput = card?.querySelector('.qty-input') as HTMLInputElement;
       const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
@@ -220,12 +352,10 @@
         description: button.dataset.productDescription
       };
       
-      // Agregar la cantidad especificada al carrito
       for (let i = 0; i < quantity; i++) {
         cartStore.addItem(product);
       }
       
-      // Feedback visual
       const textSpan = button.querySelector('span:last-child');
       if (textSpan) {
         button.classList.add('added');
@@ -234,7 +364,6 @@
         setTimeout(() => {
           button.classList.remove('added');
           textSpan.textContent = originalText;
-          // Resetear cantidad a 1
           if (quantityInput) {
             quantityInput.value = '1';
           }
@@ -247,6 +376,8 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeCartPanel();
+      clearModal?.classList.remove('show');
+      removeModal?.classList.remove('show');
     }
   });
 
@@ -302,7 +433,6 @@
     padding: 0 6px;
   }
 
-  /* Overlay oscuro */
   .cart-overlay {
     position: fixed;
     top: 0;
@@ -321,7 +451,6 @@
     visibility: visible;
   }
   
-  /* Panel del carrito - OCULTO por defecto */
   .cart-panel {
     position: fixed;
     top: 0;
@@ -338,7 +467,6 @@
     transition: transform 0.3s ease-out;
   }
 
-  /* Estado abierto */
   .cart-panel.open {
     transform: translateX(0);
   }
@@ -392,55 +520,88 @@
     flex: 1;
   }
   
-  .cart-item-actions {
+    .cart-item-actions {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
     align-items: flex-end;
   }
   
   .quantity-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     background: white;
-    border-radius: 0.5rem;
-    padding: 0.25rem;
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+  }
+
+  .quantity-controls:hover {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   }
   
   .quantity-btn {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    color: white;
-    border-radius: 0.375rem;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: #374151;
+    border-radius: 0.5rem;
     font-weight: 700;
     transition: all 0.2s ease;
+    font-size: 1.125rem;
   }
   
   .quantity-btn:hover {
-    transform: scale(1.1);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  }
+
+  .quantity-btn:active {
+    transform: scale(0.95);
   }
   
   .quantity-value {
-    width: 32px;
+    min-width: 40px;
     text-align: center;
     font-weight: 700;
-    color: #374151;
+    color: #1f2937;
+    font-size: 1rem;
+    padding: 0 0.5rem;
   }
   
   .remove-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fef2f2;
     color: #ef4444;
-    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
   }
   
   .remove-btn:hover {
-    color: #dc2626;
-    transform: scale(1.1);
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border-color: #dc2626;
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
   }
+
+  .remove-btn:active {
+    transform: scale(0.95) rotate(0deg);
+  }
+
   
   .cart-footer {
     padding: 1.5rem;
@@ -462,7 +623,6 @@
   .stock-notice strong {
     color: #1e40af;
   }
-
   
   .whatsapp-btn {
     width: 100%;
@@ -498,6 +658,120 @@
     background: #ef4444;
     color: white;
   }
+
+  /* Modal de Confirmación */
+  .confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .confirm-modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .confirm-modal-content {
+    background: white;
+    border-radius: 1.5rem;
+    max-width: 450px;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    animation: scaleIn 0.3s ease;
+  }
+
+  .confirm-modal-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .confirm-modal-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-cancel {
+    flex: 1;
+    background: #f3f4f6;
+    color: #374151;
+    font-weight: 700;
+    padding: 0.875rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-cancel:hover {
+    background: #e5e7eb;
+  }
+
+  .btn-confirm-delete {
+    flex: 1;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    font-weight: 700;
+    padding: 0.875rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-confirm-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+  }
+
+  /* Toast message */
+  .toast-message {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+  }
+
+  .toast-message.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
   
   @media (max-width: 640px) {
     .cart-btn {
@@ -509,6 +783,16 @@
     
     .cart-panel {
       max-width: 100%;
+    }
+
+    .confirm-modal-buttons {
+      flex-direction: column-reverse;
+    }
+
+    .toast-message {
+      bottom: 1rem;
+      right: 1rem;
+      left: 1rem;
     }
   }
 </style>
