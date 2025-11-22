@@ -1,26 +1,31 @@
 ---
-import Layout from '../layouts/layout.astro';
-import Header from '../components/header.astro';
-import ProductCard from '../components/productCard.astro';
-import WhatsAppButton from '../components/WhatsAppButton.astro';
-import CartButton from '../components/CartButton.astro';
-import Footer from '../components/footer.astro';
-import products from '../data/products.json';
+import Layout from "../layouts/layout.astro";
+import Header from "../components/header.astro";
+import ProductCard from "../components/productCard.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+import SimpleCart from "../components/SimpleCart.astro";
+import Footer from "../components/footer.astro";
+import products from "../data/products.json";
 
-const categories = ['Todos', 'Plásticos', 'Aseo', 'Papel', 'Desechables'];
+const categories = ["Todos", "Plásticos", "Aseo", "Papel", "Desechables"];
 
 const urlParams = Astro.url.searchParams;
-const selectedCategory = urlParams.get('categoria') || 'Todos';
+const selectedCategory = urlParams.get("categoria") || "Todos";
 ---
 
-<Layout title="Productos - Musaplast" description="Explora nuestro catálogo completo de productos">
+<Layout
+  title="Productos - Musaplast"
+  description="Explora nuestro catálogo completo de productos"
+>
   <Header />
-  
+
   <main class="min-h-screen bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4 py-12">
       <!-- Header de la página -->
       <div class="text-center mb-12">
-        <h1 class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-600 via-slate-700 to-blue-800 bg-clip-text text-transparent">
+        <h1
+          class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-600 via-slate-700 to-blue-800 bg-clip-text text-transparent"
+        >
           Nuestros Productos
         </h1>
         <p class="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -30,63 +35,102 @@ const selectedCategory = urlParams.get('categoria') || 'Todos';
 
       <!-- Layout con Sidebar -->
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
         <!-- Sidebar de Filtros -->
         <aside class="lg:col-span-1">
           <div class="sticky top-24">
             <!-- Barra de búsqueda -->
-            <div class="bg-white rounded-2xl p-6 shadow-md border-2 border-gray-100 mb-6">
-              <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <div
+              class="bg-white rounded-2xl p-6 shadow-md border-2 border-gray-100 mb-6"
+            >
+              <h2
+                class="text-lg font-bold text-gray-900 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 Buscar
               </h2>
               <div class="relative">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="search-input"
                   placeholder="Buscar productos..."
                   class="w-full px-4 py-3 pl-11 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-gray-900"
                 />
-                <svg 
+                <svg
                   class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
-                  fill="none" 
-                  stroke="currentColor" 
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                <button 
+                <button
                   id="clear-search"
                   class="hidden absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                 </button>
               </div>
-              <div id="search-results" class="mt-3 text-xs text-gray-600">
-              </div>
+              <div id="search-results" class="mt-3 text-xs text-gray-600"></div>
             </div>
 
             <!-- Filtros de categoría -->
-            <div class="bg-white rounded-2xl p-6 shadow-md border-2 border-gray-100">
-              <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <div
+              class="bg-white rounded-2xl p-6 shadow-md border-2 border-gray-100"
+            >
+              <h2
+                class="text-lg font-bold text-gray-900 mb-4 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
                 Categorías
               </h2>
               <div class="space-y-2">
-                {categories.map((cat) => (
-                  <button 
-                    class="filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02]"
-                    data-category={cat}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                {
+                  categories.map((cat) => (
+                    <button
+                      class="filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02]"
+                      data-category={cat}
+                    >
+                      {cat}
+                    </button>
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -94,21 +138,44 @@ const selectedCategory = urlParams.get('categoria') || 'Todos';
 
         <!-- Grid de productos -->
         <div class="lg:col-span-3">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="products-grid">
-            {products.map(product => (
-              <div class="product-item" data-category={product.category} data-name={product.name.toLowerCase()}>
-                <ProductCard {...product} />
-              </div>
-            ))}
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="products-grid"
+          >
+            {
+              products.map((product) => (
+                <div
+                  class="product-item"
+                  data-category={product.category}
+                  data-name={product.name.toLowerCase()}
+                >
+                  <ProductCard {...product} />
+                </div>
+              ))
+            }
           </div>
 
           <!-- Mensaje cuando no hay productos -->
           <div id="no-products" class="hidden text-center py-16">
-            <svg class="w-24 h-24 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <svg
+              class="w-24 h-24 mx-auto mb-4 text-gray-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
-            <p class="text-gray-500 text-lg font-semibold mb-2">No se encontraron productos</p>
-            <p class="text-gray-400">Intenta con otro término de búsqueda o categoría</p>
+            <p class="text-gray-500 text-lg font-semibold mb-2">
+              No se encontraron productos
+            </p>
+            <p class="text-gray-400">
+              Intenta con otro término de búsqueda o categoría
+            </p>
           </div>
         </div>
       </div>
@@ -117,48 +184,51 @@ const selectedCategory = urlParams.get('categoria') || 'Todos';
 
   <Footer />
   <WhatsAppButton />
-  <CartButton />
+  <SimpleCart />
 </Layout>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
-  const urlCategory = urlParams.get('categoria') || 'Todos';
-  
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const productItems = document.querySelectorAll('.product-item');
-  const noProductsMessage = document.getElementById('no-products');
-  const searchInput = document.getElementById('search-input');
-  const clearSearchBtn = document.getElementById('clear-search');
-  const searchResults = document.getElementById('search-results');
-  
+  const urlCategory = urlParams.get("categoria") || "Todos";
+
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const productItems = document.querySelectorAll(".product-item");
+  const noProductsMessage = document.getElementById("no-products");
+  const searchInput = document.getElementById("search-input");
+  const clearSearchBtn = document.getElementById("clear-search");
+  const searchResults = document.getElementById("search-results");
+
   let currentCategory = urlCategory;
-  let currentSearchTerm = '';
+  let currentSearchTerm = "";
 
   function filterProducts() {
     let visibleCount = 0;
-    
+
     productItems.forEach((item, index) => {
-      const productCategory = item.getAttribute('data-category');
-      const productName = item.getAttribute('data-name') || '';
-      
-      const categoryMatch = currentCategory === 'Todos' || productCategory === currentCategory;
-      const searchMatch = currentSearchTerm === '' || productName.includes(currentSearchTerm.toLowerCase());
-      
+      const productCategory = item.getAttribute("data-category");
+      const productName = item.getAttribute("data-name") || "";
+
+      const categoryMatch =
+        currentCategory === "Todos" || productCategory === currentCategory;
+      const searchMatch =
+        currentSearchTerm === "" ||
+        productName.includes(currentSearchTerm.toLowerCase());
+
       if (categoryMatch && searchMatch) {
         setTimeout(() => {
-          item.style.display = 'block';
-          item.style.animation = 'fadeInUp 0.5s ease-out forwards';
+          item.style.display = "block";
+          item.style.animation = "fadeInUp 0.5s ease-out forwards";
         }, index * 30);
         visibleCount++;
       } else {
-        item.style.display = 'none';
+        item.style.display = "none";
       }
     });
 
     if (visibleCount === 0) {
-      noProductsMessage?.classList.remove('hidden');
+      noProductsMessage?.classList.remove("hidden");
     } else {
-      noProductsMessage?.classList.add('hidden');
+      noProductsMessage?.classList.add("hidden");
     }
 
     updateSearchResults(visibleCount);
@@ -166,8 +236,8 @@ const selectedCategory = urlParams.get('categoria') || 'Todos';
 
   function updateSearchResults(count) {
     if (!searchResults) return;
-    
-    if (currentSearchTerm !== '') {
+
+    if (currentSearchTerm !== "") {
       if (count === 0) {
         searchResults.innerHTML = `<span class="text-red-500">Sin resultados</span>`;
       } else if (count === 1) {
@@ -176,53 +246,55 @@ const selectedCategory = urlParams.get('categoria') || 'Todos';
         searchResults.innerHTML = `<strong>${count}</strong> productos encontrados`;
       }
     } else {
-      searchResults.innerHTML = '';
+      searchResults.innerHTML = "";
     }
   }
 
   function updateActiveButton() {
-    filterButtons.forEach(btn => {
-      const btnCategory = btn.getAttribute('data-category');
+    filterButtons.forEach((btn) => {
+      const btnCategory = btn.getAttribute("data-category");
       if (btnCategory === currentCategory) {
-        btn.className = 'filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-blue-600 to-blue-700 text-white';
+        btn.className =
+          "filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-blue-600 to-blue-700 text-white";
       } else {
-        btn.className = 'filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600';
+        btn.className =
+          "filter-btn w-full text-left px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600";
       }
     });
   }
 
-  searchInput?.addEventListener('input', (e) => {
+  searchInput?.addEventListener("input", (e) => {
     currentSearchTerm = e.target.value.trim();
-    
-    if (currentSearchTerm !== '') {
-      clearSearchBtn?.classList.remove('hidden');
+
+    if (currentSearchTerm !== "") {
+      clearSearchBtn?.classList.remove("hidden");
     } else {
-      clearSearchBtn?.classList.add('hidden');
+      clearSearchBtn?.classList.add("hidden");
     }
-    
+
     filterProducts();
   });
 
-  clearSearchBtn?.addEventListener('click', () => {
-    searchInput.value = '';
-    currentSearchTerm = '';
-    clearSearchBtn.classList.add('hidden');
+  clearSearchBtn?.addEventListener("click", () => {
+    searchInput.value = "";
+    currentSearchTerm = "";
+    clearSearchBtn.classList.add("hidden");
     filterProducts();
     searchInput.focus();
   });
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      currentCategory = button.getAttribute('data-category') || 'Todos';
-      
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentCategory = button.getAttribute("data-category") || "Todos";
+
       const url = new URL(window.location);
-      if (currentCategory === 'Todos') {
-        url.searchParams.delete('categoria');
+      if (currentCategory === "Todos") {
+        url.searchParams.delete("categoria");
       } else {
-        url.searchParams.set('categoria', currentCategory);
+        url.searchParams.set("categoria", currentCategory);
       }
-      window.history.pushState({}, '', url);
-      
+      window.history.pushState({}, "", url);
+
       updateActiveButton();
       filterProducts();
     });

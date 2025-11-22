@@ -7,255 +7,442 @@ interface Props {
 }
 
 const { name, category, image, description } = Astro.props;
+// Generar ID único basado en el nombre
+const productId = name.toLowerCase().replace(/\s+/g, "-");
 ---
 
-<div class="product-card group" data-product-card>
-  <div class="product-card-inner">
-    <!-- Imagen -->
-    <div class="relative h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden rounded-t-3xl bg-gray-50">
-      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-slate-500/10 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <img 
-        src={image} 
-        alt={name} 
-        class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700"
-      />
-      <!-- Badge Categoría -->
-      <div class="absolute top-3 left-3 z-20">
-        <span class="glass-badge backdrop-blur-xl bg-white/90 text-blue-700 font-bold px-3 py-1.5 rounded-full text-xs sm:text-sm border border-blue-100 shadow-lg">
-          {category}
-        </span>
-      </div>
+<div
+  class="product-card-modern group"
+  data-product-card
+  data-product-id={productId}
+>
+  <!-- Imagen -->
+  <div class="product-image-container">
+    <img src={image} alt={name} class="product-image" />
+    <div class="product-image-overlay"></div>
+
+    <!-- Badge de categoría -->
+    <div class="product-badge">
+      <span>{category}</span>
     </div>
-    
-    <!-- Contenido -->
-    <div class="p-2 sm:p-3 md:p-6 bg-gradient-to-br from-white to-gray-50">
-      <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-2 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent line-clamp-2">
-        {name}
-      </h3>
-      {description && (
-        <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">{description}</p>
-      )}
-      
-      <!-- Fila con selector de cantidad y botón -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Selector de Cantidad (compacto) -->
-        <div class="quantity-selector-compact">
-          <button class="qty-btn decrease" type="button" aria-label="Disminuir cantidad">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 12H4"/>
-            </svg>
-          </button>
-          <input 
-            type="number" 
-            class="qty-input" 
-            value="1" 
-            min="1" 
-            max="999"
-            readonly
-            aria-label="Cantidad"
-          />
-          <button class="qty-btn increase" type="button" aria-label="Aumentar cantidad">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/>
-            </svg>
-          </button>
-        </div>
-        
-        <!-- Botón Agregar al Carrito -->
-        <button 
-          class="add-to-cart-btn flex-1 py-2.5 sm:py-3 rounded-xl font-bold transition-all duration-300 text-sm sm:text-base"
-          data-product-name={name}
-          data-product-category={category}
-          data-product-image={image}
-          data-product-description={description}
+  </div>
+
+  <!-- Contenido -->
+  <div class="product-content">
+    <h3 class="product-name">{name}</h3>
+
+    {description && <p class="product-description">{description}</p>}
+
+    <!-- Separador -->
+    <div class="product-divider"></div>
+
+    <!-- Acciones -->
+    <div class="product-actions">
+      <!-- Selector de cantidad -->
+      <div class="quantity-selector-modern">
+        <button
+          class="qty-btn-modern decrease"
+          type="button"
+          aria-label="Disminuir"
         >
-          <span class="flex items-center justify-center">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-            </svg>
-            <span class="hidden sm:inline">Agregar</span>
-            <span class="sm:hidden">+</span>
-          </span>
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20 12H4"></path>
+          </svg>
+        </button>
+        <input
+          type="number"
+          class="qty-input-modern"
+          value="1"
+          min="1"
+          max="999"
+          readonly
+          aria-label="Cantidad"
+        />
+        <button
+          class="qty-btn-modern increase"
+          type="button"
+          aria-label="Aumentar"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"></path>
+          </svg>
         </button>
       </div>
+
+      <!-- Botón agregar -->
+      <button
+        class="add-to-cart-modern"
+        data-product-id={productId}
+        data-product-name={name}
+        data-product-category={category}
+        data-product-image={image}
+        data-product-description={description}
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+        </svg>
+        <span>Agregar</span>
+      </button>
     </div>
   </div>
 </div>
 
 <script>
-  // Manejar los botones de cantidad en cada card
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('[data-product-card]');
-    
-    cards.forEach(card => {
-      const decreaseBtn = card.querySelector('.decrease');
-      const increaseBtn = card.querySelector('.increase');
-      const input = card.querySelector('.qty-input') as HTMLInputElement;
-      
+  import { addToCart } from "../lib/cart.js";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Manejar cantidades
+    const cards = document.querySelectorAll("[data-product-card]");
+
+    cards.forEach((card) => {
+      const decreaseBtn = card.querySelector(".decrease");
+      const increaseBtn = card.querySelector(".increase");
+      const input = card.querySelector(".qty-input-modern") as HTMLInputElement;
+
       if (!decreaseBtn || !increaseBtn || !input) return;
-      
-      decreaseBtn.addEventListener('click', () => {
+
+      decreaseBtn.addEventListener("click", () => {
         const currentValue = parseInt(input.value);
         if (currentValue > 1) {
           input.value = (currentValue - 1).toString();
+          input.classList.add("qty-pulse");
+          setTimeout(() => input.classList.remove("qty-pulse"), 300);
         }
       });
-      
-      increaseBtn.addEventListener('click', () => {
+
+      increaseBtn.addEventListener("click", () => {
         const currentValue = parseInt(input.value);
         if (currentValue < 999) {
           input.value = (currentValue + 1).toString();
+          input.classList.add("qty-pulse");
+          setTimeout(() => input.classList.remove("qty-pulse"), 300);
         }
       });
-      
-      // Prevenir entrada manual
-      input.addEventListener('keydown', (e) => {
-        e.preventDefault();
+    });
+
+    // Manejar agregar al carrito
+    const addButtons = document.querySelectorAll(".add-to-cart-modern");
+
+    addButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = button.closest("[data-product-card]");
+        if (!card) return;
+
+        const input = card.querySelector(
+          ".qty-input-modern",
+        ) as HTMLInputElement;
+        const quantity = parseInt(input.value);
+
+        const product = {
+          id: button.getAttribute("data-product-id") || "",
+          name: button.getAttribute("data-product-name") || "",
+          category: button.getAttribute("data-product-category") || "",
+          image: button.getAttribute("data-product-image") || "",
+          description: button.getAttribute("data-product-description") || "",
+        };
+
+        addToCart(product, quantity);
+
+        // Feedback visual
+        button.classList.add("added");
+        button.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>¡Agregado!</span>
+        `;
+
+        setTimeout(() => {
+          button.classList.remove("added");
+          button.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span>Agregar</span>
+          `;
+          input.value = "1";
+        }, 2000);
       });
     });
   });
 </script>
 
 <style>
-  .product-card {
-    perspective: 1000px;
-    height: 100%;
-    display: flex;
-  }
-  
-  .product-card-inner {
+  .product-card-modern {
     background: white;
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #f1f5f9;
     height: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  .product-card-modern:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(8, 145, 178, 0.15);
+    border-color: #0891b2;
+  }
+
+  /* Imagen */
+  .product-image-container {
+    position: relative;
+    height: 280px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    overflow: hidden;
+  }
+
+  .product-image {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 2rem;
+    transition: transform 0.5s ease;
   }
-  
-  .product-card:hover .product-card-inner {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.2);
+
+  .product-card-modern:hover .product-image {
+    transform: scale(1.1);
   }
-  
-  .glass-badge {
-    backdrop-filter: blur(12px) saturate(180%);
-    animation: fadeInScale 0.5s ease-out;
+
+  .product-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(8, 145, 178, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  
-  /* Selector de cantidad compacto */
-  .quantity-selector-compact {
+
+  .product-card-modern:hover .product-image-overlay {
+    opacity: 1;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+  }
+
+  /* Contenido */
+  .product-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .product-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    min-height: 2.8em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-description {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .product-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #e2e8f0 50%,
+      transparent 100%
+    );
+    margin-bottom: 1rem;
+  }
+
+  /* Acciones */
+  .product-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .quantity-selector-modern {
     display: flex;
     align-items: center;
-    background: white;
-    border-radius: 0.5rem;
-    border: 2px solid #e5e7eb;
+    background: #f8fafc;
+    border-radius: 0.75rem;
+    border: 2px solid #e2e8f0;
     overflow: hidden;
-    flex-shrink: 0;
+    transition: border-color 0.2s ease;
   }
-  
-  .qty-btn {
-    width: 28px;
-    height: 36px;
+
+  .quantity-selector-modern:focus-within {
+    border-color: #0891b2;
+  }
+
+  .qty-btn-modern {
+    width: 36px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f9fafb;
-    color: #6b7280;
+    background: transparent;
+    color: #64748b;
     transition: all 0.2s ease;
     border: none;
   }
-  
-  .qty-btn:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+
+  .qty-btn-modern:hover {
+    background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%);
     color: white;
   }
-  
-  .qty-btn:active {
+
+  .qty-btn-modern:active {
     transform: scale(0.9);
   }
-  
-  .qty-input {
-    width: 40px;
+
+  .qty-input-modern {
+    width: 48px;
     text-align: center;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: #374151;
-    background: white;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1e293b;
+    background: transparent;
     border: none;
     outline: none;
-    cursor: default;
-    padding: 0.25rem;
+    transition: transform 0.3s ease;
   }
-  
-  /* Ocultar flechas de input number */
-  .qty-input::-webkit-outer-spin-button,
-  .qty-input::-webkit-inner-spin-button {
+
+  .qty-input-modern.qty-pulse {
+    transform: scale(1.2);
+  }
+
+  .qty-input-modern::-webkit-outer-spin-button,
+  .qty-input-modern::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  
-  .qty-input[type=number] {
+
+  .qty-input-modern[type="number"] {
     -moz-appearance: textfield;
   }
-  
-  .add-to-cart-btn {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+
+  .add-to-cart-modern {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%);
     color: white;
+    font-weight: 700;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+    border: none;
     position: relative;
     overflow: hidden;
-    border: none;
   }
-  
-  .add-to-cart-btn::before {
-    content: '';
+
+  .add-to-cart-modern::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    transition: left 0.5s ease;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
   }
-  
-  .add-to-cart-btn:hover::before {
-    left: 0;
+
+  .add-to-cart-modern:hover::before {
+    transform: translateX(100%);
   }
-  
-  .add-to-cart-btn span {
-    position: relative;
-    z-index: 1;
+
+  .add-to-cart-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(8, 145, 178, 0.4);
   }
-  
-  .add-to-cart-btn.added {
+
+  .add-to-cart-modern.added {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  }
-  
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   }
 
   /* Responsive */
   @media (max-width: 640px) {
-    .qty-btn {
-      width: 24px;
-      height: 32px;
+    .product-image-container {
+      height: 220px;
     }
-    
-    .qty-input {
+
+    .product-content {
+      padding: 1.25rem;
+    }
+
+    .product-name {
+      font-size: 1rem;
+    }
+
+    .qty-btn-modern {
       width: 32px;
-      font-size: 0.75rem;
+      height: 36px;
+    }
+
+    .qty-input-modern {
+      width: 40px;
+      font-size: 0.875rem;
+    }
+
+    .add-to-cart-modern {
+      padding: 0.625rem 1rem;
+      font-size: 0.875rem;
     }
   }
 </style>
-

@@ -3,96 +3,112 @@
     "id": 1,
     "name": "Vasos Plásticos Transparentes",
     "category": "Plásticos",
-    "image": "/images/productos/vasos-transparentes.jpg",
-    "description": "Pack x100 unidades, 250ml. Ideales para eventos y fiestas.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Pack x100 unidades, 250ml. Ideales para eventos y fiestas."
   },
   {
     "id": 2,
     "name": "Bowl Kraft 750ml",
     "category": "Desechables",
-    "image": "/images/productos/bowl-kraft.jpg",
-    "description": "Biodegradable, perfecto para delivery de comida.",
-    "price": "Consultar"
+    "image": "/images/potekraft.webp",
+    "description": "Biodegradable, perfecto para delivery de comida."
   },
   {
     "id": 3,
     "name": "Bolsas Camiseta Blancas",
     "category": "Plásticos",
-    "image": "/images/productos/bolsas-blancas.jpg",
-    "description": "Pack x100 unidades, resistentes y económicas.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Pack x100 unidades, resistentes y económicas."
   },
   {
     "id": 4,
     "name": "Bolsas Camiseta Negras",
     "category": "Plásticos",
-    "image": "/images/productos/bolsas-negras.jpg",
-    "description": "Pack x100 unidades, alta resistencia.",
-    "price": "Consultar"
+    "image": "/images/potekraft.webp",
+    "description": "Pack x100 unidades, alta resistencia."
   },
   {
     "id": 5,
     "name": "Papel Higiénico Premium",
     "category": "Papel",
-    "image": "/images/productos/papel-higienico.jpg",
-    "description": "Rollo de 500 hojas, doble hoja, suave y resistente.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Rollo de 500 hojas, doble hoja, suave y resistente."
   },
   {
     "id": 6,
-    "name": "Toallas de Papel",
+    "name": "Toallas de Papel Tork",
     "category": "Papel",
-    "image": "/images/productos/toallas-papel.jpg",
-    "description": "Rollo x100 paños, alta absorción.",
-    "price": "Consultar"
+    "image": "/images/toallatork.png",
+    "description": "Rollo x100 paños, alta absorción."
   },
   {
     "id": 7,
     "name": "Bidón de Cloro 5L",
     "category": "Aseo",
-    "image": "/images/productos/bidon-cloro.jpg",
-    "description": "Cloro concentrado, ideal para limpieza profunda.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Cloro concentrado, ideal para limpieza profunda."
   },
   {
     "id": 8,
     "name": "Sacos de Papel Kraft",
     "category": "Desechables",
-    "image": "/images/productos/sacos-papel.jpg",
-    "description": "Pack x50 unidades, biodegradables y resistentes.",
-    "price": "Consultar"
+    "image": "/images/potekraft.webp",
+    "description": "Pack x50 unidades, biodegradables y resistentes."
   },
   {
     "id": 9,
     "name": "Bolsas de Basura 50L",
     "category": "Plásticos",
-    "image": "/images/productos/bolsas-basura.jpg",
-    "description": "Pack x20 unidades, extra resistentes.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Pack x20 unidades, extra resistentes."
   },
   {
     "id": 10,
     "name": "Vasos de Aislapol",
     "category": "Desechables",
-    "image": "/images/productos/vasos-aislapol.jpg",
-    "description": "Pack x50 unidades, mantiene temperatura.",
-    "price": "Consultar"
+    "image": "/images/potekraft.webp",
+    "description": "Pack x50 unidades, mantiene temperatura."
   },
   {
     "id": 11,
     "name": "Detergente Líquido 5L",
     "category": "Aseo",
-    "image": "/images/productos/detergente.jpg",
-    "description": "Alto poder de limpieza, rendidor.",
-    "price": "Consultar"
+    "image": "/images/confort40.png",
+    "description": "Alto poder de limpieza, rendidor."
   },
   {
     "id": 12,
     "name": "Potes Kraft con Tapa",
     "category": "Desechables",
-    "image": "/images/productos/potes-kraft.jpg",
-    "description": "Pack x50 unidades, 500ml, ecológicos.",
-    "price": "Consultar"
+    "image": "/images/potekraft.webp",
+    "description": "Pack x50 unidades, 500ml, ecológicos."
+  },
+  {
+    "id": 13,
+    "name": "Contenedores Plásticos con Tapa",
+    "category": "Plásticos",
+    "image": "/images/confort40.png",
+    "description": "Pack x25 unidades, 1000ml, aptos para microondas."
+  },
+  {
+    "id": 14,
+    "name": "Servilletas de Papel",
+    "category": "Papel",
+    "image": "/images/toallatork.png",
+    "description": "Pack x500 unidades, doble hoja, blancas."
+  },
+  {
+    "id": 15,
+    "name": "Desinfectante Multiuso 5L",
+    "category": "Aseo",
+    "image": "/images/confort40.png",
+    "description": "Elimina 99.9% de bacterias, aroma lavanda."
+  },
+  {
+    "id": 16,
+    "name": "Platos Desechables Kraft",
+    "category": "Desechables",
+    "image": "/images/potekraft.webp",
+    "description": "Pack x50 unidades, biodegradables, resistentes."
   }
 ]
