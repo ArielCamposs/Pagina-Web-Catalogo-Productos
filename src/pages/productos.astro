@@ -204,7 +204,8 @@ const selectedCategory = urlParams.get("categoria") || "Todos";
   function filterProducts() {
     let visibleCount = 0;
 
-    productItems.forEach((item, index) => {
+    productItems.forEach((el, index) => {
+      const item = el as HTMLElement;
       const productCategory = item.getAttribute("data-category");
       const productName = item.getAttribute("data-name") || "";
 
@@ -212,7 +213,7 @@ const selectedCategory = urlParams.get("categoria") || "Todos";
         currentCategory === "Todos" || productCategory === currentCategory;
       const searchMatch =
         currentSearchTerm === "" ||
-        productName.includes(currentSearchTerm.toLowerCase());
+        productName.toLowerCase().includes(currentSearchTerm.toLowerCase());
 
       if (categoryMatch && searchMatch) {
         setTimeout(() => {
@@ -234,7 +235,7 @@ const selectedCategory = urlParams.get("categoria") || "Todos";
     updateSearchResults(visibleCount);
   }
 
-  function updateSearchResults(count) {
+  function updateSearchResults(count: number) {
     if (!searchResults) return;
 
     if (currentSearchTerm !== "") {
@@ -264,7 +265,8 @@ const selectedCategory = urlParams.get("categoria") || "Todos";
   }
 
   searchInput?.addEventListener("input", (e) => {
-    currentSearchTerm = e.target.value.trim();
+    const target = e.target as HTMLInputElement;
+    currentSearchTerm = target.value.trim();
 
     if (currentSearchTerm !== "") {
       clearSearchBtn?.classList.remove("hidden");
@@ -276,18 +278,20 @@ const selectedCategory = urlParams.get("categoria") || "Todos";
   });
 
   clearSearchBtn?.addEventListener("click", () => {
-    searchInput.value = "";
-    currentSearchTerm = "";
-    clearSearchBtn.classList.add("hidden");
-    filterProducts();
-    searchInput.focus();
+    if (searchInput instanceof HTMLInputElement) {
+      searchInput.value = "";
+      currentSearchTerm = "";
+      clearSearchBtn.classList.add("hidden");
+      filterProducts();
+      searchInput.focus();
+    }
   });
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       currentCategory = button.getAttribute("data-category") || "Todos";
 
-      const url = new URL(window.location);
+      const url = new URL(window.location.href);
       if (currentCategory === "Todos") {
         url.searchParams.delete("categoria");
       } else {
